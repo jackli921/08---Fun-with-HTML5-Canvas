@@ -6,10 +6,15 @@
 </head>
 <body>
   <header>
-    <div>
-      <input type="range" min="10" max="100" value="15" oninput= "num.value = this.value"></input>
-      <output id="num">15</output>
-      <input type="color">
+    <div class="control-container">
+      <div>
+        <label for="width-input">Stroke Width</label>
+        <input type="range" min="10" max="100" value="15" id="width-input" oninput="num.value = this.value"></input>
+        <output id="num">15</output>
+      </div>
+
+
+      <input type="color" id="color-input">
 
     </div>
   </header>
@@ -24,12 +29,11 @@
   // canvas.width = window.innerWidth
   // canvas.height = window.innerHeight
 
-  ctx.strokeStyle = '#BADA55'
-  ctx.lineJoin = '#round'
+  ctx.lineJoin = 'round'
   ctx.lineCap = 'round'
-  ctx.lineWidth = 100
 
 // flag element to draw when clicked on canvas
+
 
 let isDrawing = false
 // storing coordinates for the start of the cursor
@@ -40,7 +44,10 @@ let direction = true
 
 function draw(e){
   if(!isDrawing) return
-  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
+  // ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
+
+  ctx.lineWidth = document.querySelector('#width-input').value
+  ctx.strokeStyle = document.querySelector('#color-input').value
   ctx.beginPath()
   ctx.moveTo(lastX, lastY)
   ctx.lineTo(e.offsetX, e.offsetY)
@@ -81,6 +88,13 @@ canvas.addEventListener('mouseout', ()=> isDrawing = false)
 <style>
   html, body {
     margin: 0;
+  }
+  .control-container{
+    display: flex;
+    width: 500px;
+    gap: 2em;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 
